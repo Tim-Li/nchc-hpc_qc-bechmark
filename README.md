@@ -25,10 +25,14 @@ srun lsblk
 ## Buildup Qiskit Env
 - install miniconda and create env for qiskit
   ```
+  # install miniconda
   wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
   sh Miniconda3-latest-Linux-x86_64.sh
   conda config --set auto_activate_base false
+  # create env
   conda create --name qiskit python=3.10
+  # env activate
+  conda activate qiskit
   ```
 - install qiskit
   ```
@@ -36,3 +40,8 @@ srun lsblk
   pip install qiskit-aer==0.13.2
   pip install qiskit-machine-learning==0.7.1
   ```
+## HPC bechmarking
+### Quantum Volume
+- [Validating quantum computers using randomized model circuits](https://arxiv.org/abs/1811.12926)
+- [Demonstration of quantum volume 64 on a superconducting quantum computing system](https://arxiv.org/abs/2008.08571)https://arxiv.org/abs/2008.08571
+
