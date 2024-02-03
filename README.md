@@ -4,7 +4,7 @@
 - https://github.com/chunyulin/hpc_snippet/wiki/QSim
 
 ## Hardware
-![image](https://github.com/Tim-Li/nchc-hpc_qc-bechmark/assets/34836120/2f37d6f3-59b8-49bd-b047-796f44b39a6e)
+![alt text](orm67ua2.png)
 ```
 cat /proc/cpuinfo
 srun lsblk
@@ -17,10 +17,10 @@ srun lsblk
   2. Intel oneAPI
   3. NVHPC
 
-## QC
-1. XACC
+## Quantum Computing Tools
+1. **qiskit**
 2. Intel-QS
-3. qiskit
+3. XACC
 
 ## Buildup Qiskit Env
 - install miniconda and create env for qiskit
@@ -40,8 +40,34 @@ srun lsblk
   pip install qiskit-aer==0.13.2
   pip install qiskit-machine-learning==0.7.1
   ```
-## HPC bechmarking
-### Quantum Volume
+## Twnia-4 HPC QC bechmarking
+### 1. Verification Experiments
+#### Quantum Volume
+1. Motivation
+- Compare with different Real Hardware QC
+- Compare with different simulators 
+  - hardware system：cpu, hpc, gpu
+  - quantum computing software：qiskit-aer, intel-qs
+- Extend to some application
+  - Simulation real hardware QC
+  - Quantum Error Correction
+2. Resource 
+- 
+
+3. Research Paper
 - [Validating quantum computers using randomized model circuits](https://arxiv.org/abs/1811.12926)
 - [Demonstration of quantum volume 64 on a superconducting quantum computing system](https://arxiv.org/abs/2008.08571)https://arxiv.org/abs/2008.08571
 
+4. Experiments
+- single node
+- multi node
+
+6. Result
+
+
+---
+### 2. Application Experiments 
+- QSVM
+
+
+---
