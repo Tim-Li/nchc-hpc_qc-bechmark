@@ -41,6 +41,10 @@ srun lsblk
   pip install qiskit-machine-learning==0.7.1
   pip install qiskit-experiments==0.5.4
   ```
+- others
+  ```
+  pip install memory-profiler
+  ```
 ## Twnia-4 HPC QC bechmarking
 - [Qiskit Experiments](https://qiskit-extensions.github.io/qiskit-experiments/tutorials/index.html)
 - What is Qiskit Experiments?
