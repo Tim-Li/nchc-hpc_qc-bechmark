@@ -44,33 +44,26 @@ srun lsblk
 ## Twnia-4 HPC QC bechmarking
 - [Qiskit Experiments](https://qiskit-extensions.github.io/qiskit-experiments/tutorials/index.html)
 - What is Qiskit Experiments?
-  1. Qiskit Experiments is a package for running **device characterization and calibration experiments** on top of the core functionality of Qiskit Terra.
-  2. An experiment comprises a series of circuits and associated metadata. Once the experiment circuits are executed on a quantum backend, either **real or simulated**, analysis is run automatically on the jobs and results in the form of data, fit parameters, and figures are generated.
-  3. In addition to the experiment framework itself, Qiskit Experiments also has a rich library of experiments for calibrating and characterizing qubits.
-- What Qiskit Experiments can do
-  1. Run characterization and calibration experiments such as **quantum volume** and **randomized benchmarking**
-  2. Run built-in or customized experiments with all the options available in Qiskit Terra
-  3. Specify fit series and parameters in the analysis
-  4. Transform the data through the data processor
-  5. Visualize data with support for custom drawing backends
-  6. Save and retrieve timestamped calibration parameters for physical backends
+  1. Qiskit Experiments is a package for running **device characterization and calibration experiments**.
+  2. Once the experiment circuits are executed on a quantum backend, either **real or simulated**, analysis is run automatically on the jobs and results in the form of data, fit parameters, and figures are generated.
 - backend
   1. real-hardware qc
-  2. real-hardware qc simulator **
-  3. qc simulator **
-- qc simulator benchmark
+  2. fake real-hardware qc simulator **
+  3. ideal qc simulator **
+- benchmark
   - [Quantum Volume](https://qiskit-extensions.github.io/qiskit-experiments/manuals/verification/quantum_volume.html)
+  ![alt text](figure/image.png) 
   - [Pushing quantum performance forward with our highest Quantum Volume yet](https://research.ibm.com/blog/quantum-volume-256)
   ![alt text](figure/image-1.png)
 ---
 ### 1. Quantum Volume
-1. Introduction
+- Introduction
   - Quantum Volume (QV) is a single-number metric that can be measured using a concrete protocol on **near-term quantum computers of modest size**. 
   - The QV method quantifies the **largest random circuit** of equal width and depth that the computer successfully implements. 
   - Quantum computing systems with **high-fidelity operations**, **high connectivity**, **large calibrated gate sets**, and **circuit rewriting toolchains** are expected to have higher quantum volumes.
   - A quantum volume model circuit
-  ![alt text](figure/image.png)
-2. Motivation
+![alt text](figure/qv-qc.png)
+- Motivation
   - Simulate Real Hardware QC to compare with Real Hardware QC **
   - Can compare with different ideal QC simulators 
     - hardware system：cpu, hpc, gpu
@@ -80,17 +73,20 @@ srun lsblk
     - Quantum Error Correction
     - AI enhance QC
 
-3. Research Paper
-- [Validating quantum computers using randomized model circuits](https://arxiv.org/abs/1811.12926)
-- [Demonstration of quantum volume 64 on a superconducting quantum computing system](https://arxiv.org/abs/2008.08571)https://arxiv.org/abs/2008.08571
+- Research Paper
+  - [Validating quantum computers using randomized model circuits](https://arxiv.org/abs/1811.12926)
+  - [Demonstration of quantum volume 64 on a superconducting quantum computing system](https://arxiv.org/abs/2008.08571)https://arxiv.org/abs/2008.08571
 
-4. qiskit quantum volume experiment demo code
+- Code 
+  - [qiskit aer demo code](quantum-volume/qiskit-aer-demo.ipynb)
+  - [qiskit quantum volume experiment demo code](quantum-volume/qiskit-qv-exp-demo.ipynb)
 
-5. Experiments
-- single node
-- multi node
+  
+- Experiments
+  - single node
+  - multi node
 
-6. Result
+- Result
 
 
 
