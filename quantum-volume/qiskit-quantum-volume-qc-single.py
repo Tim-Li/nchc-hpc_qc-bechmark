@@ -28,7 +28,7 @@ backend_Aer = AerSimulator(method='statevector',
                         shots=100, 
                         )
 # print('backend opt:',backend_Aer.options)
-fp=open('memory_profiler.log','w+')
+fp=open('qv_qc-single-memory_profiler.log','w+')
 @profile(stream=fp)
 def quantumvolume_qc_benchmark(nb_qubits=2):
     time_start = time.perf_counter()
@@ -43,9 +43,9 @@ def quantumvolume_qc_benchmark(nb_qubits=2):
     print(nb_qubits,times)
 
 quantumvolume_qc_benchmark(1)
-for q in range(1,30):
+for q in range(1,31):
     quantumvolume_qc_benchmark(q)
     dict = {"data_q": data_q, "data_t": data_t}
     df = pd.DataFrame(dict)
     df.to_csv("qv_qc-single-data.csv")
-sys.stdout = LogFile("memory_profile_log-qv_qc-single", reportIncrementFlag=True)
+sys.stdout = LogFile("memory_profile_log", reportIncrementFlag=False)
