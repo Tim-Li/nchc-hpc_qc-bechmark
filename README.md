@@ -61,7 +61,7 @@ srun lsblk
 - qc simulator benchmark
   - [Quantum Volume](https://qiskit-extensions.github.io/qiskit-experiments/manuals/verification/quantum_volume.html)
   - [Pushing quantum performance forward with our highest Quantum Volume yet](https://research.ibm.com/blog/quantum-volume-256)
-  ![alt text](image-1.png)
+  ![alt text](figure/image-1.png)
 ---
 ### 1. Quantum Volume
 1. Introduction
