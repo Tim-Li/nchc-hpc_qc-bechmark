@@ -41,11 +41,14 @@ srun lsblk
   pip install qiskit-machine-learning==0.7.1
   pip install qiskit-experiments==0.5.4
   ```
+- others
+  ```
+  pip install -U memory_profiler
+  ```
 ## Twnia-4 HPC QC bechmarking
 - [Qiskit Experiments](https://qiskit-extensions.github.io/qiskit-experiments/tutorials/index.html)
-- What is Qiskit Experiments?
-  1. Qiskit Experiments is a package for running **device characterization and calibration experiments**.
-  2. Once the experiment circuits are executed on a quantum backend, either **real or simulated**, analysis is run automatically on the jobs and results in the form of data, fit parameters, and figures are generated.
+- [Fake Provider](https://docs.quantum.ibm.com/api/qiskit/providers_fake_provider)
+- [IBM Compute resources](https://quantum.ibm.com/services/resources?tab=systems)
 - backend
   1. real-hardware qc
   2. fake real-hardware qc simulator **
