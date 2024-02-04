@@ -71,13 +71,14 @@ srun lsblk
   - A quantum volume model circuit
   ![alt text](figure/image.png)
 2. Motivation
-  - Can compare with different Real Hardware QC **
-  - Can compare with different simulators 
+  - Simulate Real Hardware QC to compare with Real Hardware QC **
+  - Can compare with different ideal QC simulators 
     - hardware system：cpu, hpc, gpu
     - quantum computing software：qiskit-aer, intel-qs
   - Extend to some application **
-    - Simulation real hardware QC
+    - Calibrate QC
     - Quantum Error Correction
+    - AI enhance QC
 
 3. Research Paper
 - [Validating quantum computers using randomized model circuits](https://arxiv.org/abs/1811.12926)
