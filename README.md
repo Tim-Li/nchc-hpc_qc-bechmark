@@ -24,27 +24,27 @@ srun lsblk
 
 ## Buildup Qiskit Env
 - install miniconda and create env for qiskit
-  ```
-  # install miniconda
-  wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-  sh Miniconda3-latest-Linux-x86_64.sh
-  conda config --set auto_activate_base false
-  # create env
-  conda create --name qiskit python=3.10
-  # env activate
-  conda activate qiskit
-  ```
+```
+# install miniconda
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh
+conda config --set auto_activate_base false
+# create env
+conda create --name qiskit python=3.10
+# env activate
+conda activate qiskit
+```
 - install qiskit
-  ```
-  pip install qiskit==0.46.0
-  pip install qiskit-aer==0.13.2
-  pip install qiskit-machine-learning==0.7.1
-  pip install qiskit-experiments==0.5.4
-  ```
+```
+pip install qiskit==0.46.0
+pip install qiskit-aer==0.13.2
+pip install qiskit-machine-learning==0.7.1
+pip install qiskit-experiments==0.5.4
+```
 - others
-  ```
-  pip install -U memory_profiler
-  ```
+```
+pip install -U memory_profiler
+```
 ## Twnia-4 HPC QC bechmarking
 - [Qiskit Experiments](https://qiskit-extensions.github.io/qiskit-experiments/tutorials/index.html)
 - [Fake Provider](https://docs.quantum.ibm.com/api/qiskit/providers_fake_provider)
