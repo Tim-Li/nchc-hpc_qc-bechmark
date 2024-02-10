@@ -38,14 +38,66 @@
     - hpc1：192.168.230.2
     - hpc2：192.168.230.3
 ---
+## 設置 IP 主機映射
+```
+sudo nano /etc/hosts
+# 192.168.230.2 hpc1
+# 192.168.230.3 hpc2
+
+# 測試 ping 看看
+ping hpc1
+ping hpc2
+```
+
+## Setup ssh no-password 
+### Install ssh
+```
+sudo apt-get install ssh -y
+```
+### 生成金鑰
+```
+# 生成金鑰 (主節點)
+ssh-keygen -t rsa
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
+# 生成金鑰 (子節點)
+ssh-keygen -t rsa
+```
+### 傳送金鑰
+```
+# 子節點 傳送公鑰到 主節點
+scp /home/hpc/.ssh/id_rsa.pub hpc1:~/.ssh/id_rsa_hpc2.pub
+
+# 加入驗證 (主節點)
+cat ~/.ssh/id_rsa_hpc2.pub >> ~/.ssh/authorized_keys
+
+# 主節點 傳送到 子節點
+scp /home/hpc/.ssh/authorized_keys hpc2:~/.ssh/authorized_keys
+```
+### 驗證
+```
+# 驗證 (主節點：hpc1)
+ssh hpc1
+ssh hpc2
+
+# 驗證 (子節點：hpc2)
+ssh hpc1
+ssh hpc2
+```
+---
+## 建立共同資料夾
+### 
+
+
+
+---
 ## Install mpich
 - 
 
 ## Install openmpi
-## Setup ssh no-password 
-- install ssh
 
-## 建立共同資料夾
+
+
 ## 測試多節點計算
 
 ---
@@ -54,3 +106,8 @@
 
 
 ## Install qiskit-aer from source
+
+
+## Research multi-node quantum circuit simulation on HPC
+- [Cache Blocking Technique to Large Scale Quantum Computing Simulation on Supercomputers](https://arxiv.org/abs/2102.02957)
+- [mpiQulacs: A Distributed Quantum Computer Simulator for A64FX-based Cluster Systems](https://arxiv.org/abs/2203.16044)
