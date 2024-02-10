@@ -73,10 +73,59 @@ ssh hpc2
 ```
 ---
 ## 建立共同資料夾
-### 
+### 配置nfs服务器端
+- 安裝 nfs
+```
+sudo apt install nfs-kernel-server
+sudo systemctl status nfs-server
+```
+- 創建 nfs 共享目录
+```
+sudo mkdir /opt/nfsdir
+sudo chown nobody:nogroup /opt/nfsdir
+sudo chmod -R 777 /opt/nfsdir
+```
+- 授權 客户端訪問 nfs server
+```
+sudo vi /etc/exports
 
+# 加入下方指令，並儲存後退出
+/opt/nfsdir 192.168.230.3/24(rw,sync,no_subtree_check)
 
+sudo exportfs -a
+sudo systemctl restart nfs-kernel-server
+```
+- 配置防火牆
+```
+sudo ufw allow from 192.168.230.3/24 to any port nfs
 
+# check
+sudo ufw enable
+sudo ufw status
+```
+### 配置nfs客户端
+- 安裝
+```
+sudo apt install nfs-common
+```
+- 创建用来挂载 nfs server的本地目录
+```
+sudo mkdir -p /opt/nfsdir
+```
+- 挂载 nfs server 共享目录到这个客户端本地目录
+```
+sudo mount hpc1:/opt/nfsdir /opt/nfsdir
+```
+- Check
+```
+# (hpc1)
+cd /opt/nfsdir 
+touch a.txt
+
+# (hpc2)
+cd /opt/nfsdir 
+ls
+```
 ---
 ## Install mpich
 - 
