@@ -126,6 +126,12 @@ touch a.txt
 cd /opt/nfsdir 
 ls
 ```
+- 设置永久挂载
+```
+sudo nano /etc/fstab
+hpc1:/opt/nfsdir /opt/nfsdir   nfs   defaults,timeo=15,retrans=5,_netdev	0 0
+```
+
 ---
 ## Install mpich
 - 
