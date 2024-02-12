@@ -219,7 +219,6 @@ sudo apt-get remove openmpi
 or 
 sudo yum remove openmpi
 ```
-
 ---
 ## Buildup Qiskit Env
 

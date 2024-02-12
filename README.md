@@ -28,6 +28,7 @@ srun lsblk
 # install miniconda
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 sh Miniconda3-latest-Linux-x86_64.sh
+# set path /opt/nfsdir/miniconda3
 conda config --set auto_activate_base false
 # create env
 conda create --name qiskit python=3.10
@@ -45,5 +46,12 @@ pip install qiskit-experiments==0.5.4
 ```
 pip install -U memory_profiler
 ```
+### install qiskit-aer from source
+
+### install python from source
+- https://ubuntuhandbook.org/index.php/2021/10/compile-install-python-3-10-ubuntu/
+- https://stackoverflow.com/questions/8097161/how-would-i-build-python-myself-from-source-code-on-ubuntu
+
+
 ## Twnia-4 HPC QC bechmarking
 
