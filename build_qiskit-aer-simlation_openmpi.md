@@ -35,14 +35,14 @@
     ```
 - Setup `固定IP`
     - Resouce：[VMWare中Ubuntu设置固定IP上网](https://blog.csdn.net/wolf_soul/article/details/46409323)
-    - hpc1：192.168.230.2
-    - hpc2：192.168.230.3
----
+    - hpc1：192.168.134.10
+    - hpc2：192.168.134.11
+
 ## 設置 IP 主機映射
 ```
 sudo nano /etc/hosts
-# 192.168.230.2 hpc1
-# 192.168.230.3 hpc2
+# 192.168.134.10 hpc1
+# 192.168.134.11 hpc2
 
 # 測試 ping 看看
 ping hpc1
@@ -50,28 +50,28 @@ ping hpc2
 ```
 
 ## Setup ssh no-password 
-### Install ssh
+- Install ssh
 ```
 sudo apt-get install ssh -y
 ```
-### 生成金鑰
+- 生成金鑰
 ```
 # 生成金鑰 (主節點)
 ssh-keygen -t rsa
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ```
-### 傳送金鑰
+- 傳送金鑰
 ```
 # 主節點 傳送到 子節點
 scp /home/hpc/.ssh/authorized_keys hpc2:~/.ssh/authorized_keys
 ```
-### 驗證
+- 驗證
 ```
 # 驗證 (主節點：hpc1)
 ssh hpc1
 ssh hpc2
 ```
----
+
 ## 建立共同資料夾
 ### 配置nfs服务器端
 - 安裝 nfs
@@ -133,14 +133,18 @@ hpc1:/opt/nfsdir /opt/nfsdir   nfs   defaults,timeo=15,retrans=5,_netdev	0 0
 ```
 
 ---
-## Install `MPICH`
-sudo apt-get install mpich libmpich-dev
+## Install `OpenMPI`
+### From `apt-get`
+```
+sudo apt-get install openmpi-bin openmpi-doc libopenmpi-dev -y
+```
+### From `source` 
 - 安裝相關套件
 ```
 sudo apt-get install build-essential
 ```
-- Download [MPICH](https://www.mpich.org/downloads/)
-- 安裝 MPICH from source
+- Download [OpenMPI](https://www.mpich.org/downloads/)
+- 安裝 OpenMPI from source
 ```
 wget https://www.mpich.org/static/downloads/4.2.0/mpich-4.2.0.tar.gz
 tar xfz mpich-4.2.0.tar.gz
@@ -157,31 +161,30 @@ export MPI_ROOT=/opt/nfsdir/mpich-4.2.0
 export PATH=$MPI_ROOT/bin:$PATH
 export LD_LIBRARY_PATH=$MPI_ROOT/lib:$LD_LIBRARY_PATH
 <!-- export MANPATH=$MPI_ROOT/man:$MANPATH -->
-
-
 source ~/.bashrc
 ```
-- 驗證是否安裝成功
+### 驗證安裝
 ```
 mpiexec --version
-which mpicc mpiexec
+which mpicc mpiexec mpirun
 ```
-- `hello_world_c.c`
+- `hello.c`
 ```
 cd /opt/nfsdir/mpich-4.2.0/exmaple
 ls -l
-nano hell.c
+nano hello.c
 mpicc hello.c -o hello
 mpirun hello
 # Hellow world, I am 0 of 2, (hpc1)
 # Hellow world, I am 1 of 2, (hpc1)
 ```
-## 測試 openmpi 多節點計算
+### 驗證 `多節點` 計算
 <!-- - 關閉防火牆
 ```
 sudo systemctl stop ufw
 sudo systemctl disable ufw
-``` -->
+``` 
+-->
 - 編輯 `mpi_host` file
 ```
 sudo nano /opt/nfsdir/mpi_host
@@ -207,7 +210,9 @@ Hellow world, I am 6 of 8, (hpc1)
 Hellow world, I am 7 of 8, (hpc2)
 ```
 ---
-## Buildup Qiskit Env
+
+## qiskit-aer MPI simulation
+### Buildup Qiskit Env
 - install miniconda and create env for qiskit
 ```
 # install miniconda
@@ -222,13 +227,11 @@ conda activate qiskit
 ```
 -  install qiskit-aer from source
 ```
-sudo apt-get install git -y
+sudo apt-get install git build-essential libopenblas-dev -y
 git clone https://github.com/Qiskit/qiskit-aer
 cd qiskit-aer
 pip install -r requirements-dev.txt
 pip install pybind11 auditwheel
-sudo apt install build-essential -y
-sudo apt install libopenblas-dev -y
 python ./setup.py bdist_wheel -- -DAER_MPI=True -DAER_DISABLE_GDR=True
 pip install -U dist/qiskit_aer*.whl
 ```
@@ -244,7 +247,7 @@ from qiskit.circuit.library import *
 from qiskit_aer import *
 sim = AerSimulator(method='statevector',device='CPU', blocking_enable=True, blocking_qubits=10)
 shots = 100
-depth=10
+depth = 10
 qubits =  25
 circuit = transpile(QuantumVolume(qubits, depth, seed=0),backend=sim,optimization_level=0)
 circuit.measure_all()
@@ -257,70 +260,5 @@ print(meta)
 ```
 - run demo code 
 ```
-
-
-```
-## Research multi-node quantum circuit simulation on HPC
-- [Cache Blocking Technique to Large Scale Quantum Computing Simulation on Supercomputers](https://arxiv.org/abs/2102.02957)
-- [mpiQulacs: A Distributed Quantum Computer Simulator for A64FX-based Cluster Systems](https://arxiv.org/abs/2203.16044)
-
-```
-HYDRA build details:
-    Version:                                 3.3.2
-    Release Date:                            Tue Nov 12 21:23:16 CST 2019
-    CC:                              gcc   -Wl,-Bsymbolic-functions -Wl,-z,relro 
-    CXX:                             g++   -Wl,-Bsymbolic-functions -Wl,-z,relro 
-    F77:                             f77  -Wl,-Bsymbolic-functions -Wl,-z,relro 
-    F90:                             f95  -Wl,-Bsymbolic-functions -Wl,-z,relro 
-    Configure options:                       
-    '--disable-option-checking' 
-    '--prefix=/usr' 
-    '--build=x86_64-linux-gnu' 
-    '--includedir=${prefix}/include' 
-    '--mandir=${prefix}/share/man' 
-    '--infodir=${prefix}/share/info' 
-    '--sysconfdir=/etc' 
-    '--localstatedir=/var' 
-    '--disable-silent-rules' 
-    '--libdir=${prefix}/lib/x86_64-linux-gnu' 
-    '--runstatedir=/run' 
-    '--disable-maintainer-mode' 
-    '--disable-dependency-tracking' 
-    '--with-libfabric' 
-    '--enable-shared' 
-    '--enable-fortran=all' 
-    '--disable-rpath' 
-    '--disable-wrapper-rpath' 
-    '--sysconfdir=/etc/mpich' 
-    '--libdir=/usr/lib/x86_64-linux-gnu' 
-    '--includedir=/usr/include/x86_64-linux-gnu/mpich' 
-    '--docdir=/usr/share/doc/mpich' 
-    'CPPFLAGS= -Wdate-time -D_FORTIFY_SOURCE=2 -I/build/mpich-VeuB8Z/mpich-3.3.2/src/mpl/include -I/build/mpich-VeuB8Z/mpich-3.3.2/src/mpl/include -I/build/mpich-VeuB8Z/mpich-3.3.2/src/openpa/src -I/build/mpich-VeuB8Z/mpich-3.3.2/src/openpa/src -D_REENTRANT -I/build/mpich-VeuB8Z/mpich-3.3.2/src/mpi/romio/include' 
-    'CFLAGS= -g -O2 -fdebug-prefix-map=/build/mpich-VeuB8Z/mpich-3.3.2=. -fstack-protector-strong -Wformat -Werror=format-security -O2' 
-    'CXXFLAGS= -g -O2 -fdebug-prefix-map=/build/mpich-VeuB8Z/mpich-3.3.2=. -fstack-protector-strong -Wformat -Werror=format-security -O2' 
-    'FFLAGS= -g -O2 -fdebug-prefix-map=/build/mpich-VeuB8Z/mpich-3.3.2=. -fstack-protector-strong -O2' 
-    'FCFLAGS= -g -O2 -fdebug-prefix-map=/build/mpich-VeuB8Z/mpich-3.3.2=. -fstack-protector-strong -cpp -O2' 
-    'BASH_SHELL=/bin/bash' 
-    'build_alias=x86_64-linux-gnu' 
-    'MPICHLIB_CFLAGS=-g -O2 -fdebug-prefix-map=/build/mpich-VeuB8Z/mpich-3.3.2=. -fstack-protector-strong -Wformat -Werror=format-security' 
-    'MPICHLIB_CPPFLAGS=-Wdate-time -D_FORTIFY_SOURCE=2' 
-    'MPICHLIB_CXXFLAGS=-g -O2 -fdebug-prefix-map=/build/mpich-VeuB8Z/mpich-3.3.2=. -fstack-protector-strong -Wformat -Werror=format-security' 
-    'MPICHLIB_FFLAGS=-g -O2 -fdebug-prefix-map=/build/mpich-VeuB8Z/mpich-3.3.2=. -fstack-protector-strong' 
-    'MPICHLIB_FCFLAGS=-g -O2 -fdebug-prefix-map=/build/mpich-VeuB8Z/mpich-3.3.2=. -fstack-protector-strong -cpp' 
-    'LDFLAGS=-Wl,-Bsymbolic-functions -Wl,-z,relro' 
-    'FC=f95' 
-    'F77=f77' 
-    'MPILIBNAME=mpich' 
-    '--cache-file=/dev/null' 
-    '--srcdir=.' 
-    'CC=gcc' 
-    'LIBS=' 
-    'MPLLIBNAME=mpl'
-
-    Process Manager:                         pmi
-    Launchers available:                     ssh rsh fork slurm ll lsf sge manual persist
-    Topology libraries available:            hwloc
-    Resource management kernels available:   user slurm ll lsf sge pbs cobalt
-    Checkpointing libraries available:       
-    Demux engines available:                 poll select
+mpirun -np 8 -f /opt/nfsdir/mpi_host python qv.py
 ```
