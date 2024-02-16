@@ -143,24 +143,22 @@ sudo apt-get install openmpi-bin openmpi-doc libopenmpi-dev -y
 ```
 sudo apt-get install build-essential
 ```
-- Download [OpenMPI](https://www.mpich.org/downloads/)
+- Download [OpenMPI](https://www.open-mpi.org/)
 - 安裝 OpenMPI from source
 ```
-wget https://www.mpich.org/static/downloads/4.2.0/mpich-4.2.0.tar.gz
+wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
 tar xfz mpich-4.2.0.tar.gz
 cd mpich-4.2.0
 mkdir build
 cd build
-../configure --prefix=/opt/nfsdir/mpich-4.2.0 --disable-fortran 2>&1 | tee c.txt
+../configure --prefix=/usr/local
 sudo make -j 4 && sudo make install
 ```
 - 加入環境變數
 ```
 sudo nano ~/.bashrc
-export MPI_ROOT=/opt/nfsdir/mpich-4.2.0 
-export PATH=$MPI_ROOT/bin:$PATH
-export LD_LIBRARY_PATH=$MPI_ROOT/lib:$LD_LIBRARY_PATH
-<!-- export MANPATH=$MPI_ROOT/man:$MANPATH -->
+export PATH="$PATH:/usr/local/bin"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
 source ~/.bashrc
 ```
 ### 驗證安裝

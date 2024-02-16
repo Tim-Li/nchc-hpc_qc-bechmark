@@ -132,7 +132,6 @@ sudo nano /etc/fstab
 hpc1:/opt/nfsdir /opt/nfsdir   nfs   defaults,timeo=15,retrans=5,_netdev	0 0
 ```
 
----
 ## Install `MPICH`
 ### From `apt-get`
 ```
@@ -372,6 +371,21 @@ mpirun -np 12 python qv.py (with precision='single')
 {'time_taken_execute': 24.26574886, 'mpi_rank': 10, 'time_taken_parameter_binding': 6.2837e-05, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
 {'time_taken_execute': 24.267585641, 'mpi_rank': 7, 'time_taken_parameter_binding': 6.8678e-05, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
 {'time_taken_execute': 24.271945592, 'mpi_rank': 4, 'time_taken_parameter_binding': 7.6662e-05, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+```
+```
+mpirun -np 12 --hostfile /opt/nfsdir/mpi_host /opt/nfsdir/miniconda3/envs/qiskit/bin/python qv.py -quiet
+{'time_taken_execute': 10.382807881, 'mpi_rank': 0, 'time_taken_parameter_binding': 7.4158e-05, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.385085377, 'mpi_rank': 6, 'time_taken_parameter_binding': 0.004404893, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.376054303, 'mpi_rank': 9, 'time_taken_parameter_binding': 0.004457462, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.386729067, 'mpi_rank': 3, 'time_taken_parameter_binding': 7.2276e-05, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.388637528, 'mpi_rank': 2, 'time_taken_parameter_binding': 7.4886e-05, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.384976803, 'mpi_rank': 1, 'time_taken_parameter_binding': 9.9324e-05, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.386324729, 'mpi_rank': 4, 'time_taken_parameter_binding': 6.8279e-05, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.38589027, 'mpi_rank': 10, 'time_taken_parameter_binding': 0.001503165, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.390739518, 'mpi_rank': 11, 'time_taken_parameter_binding': 0.004433256, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.392316932, 'mpi_rank': 7, 'time_taken_parameter_binding': 0.003351281, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.3880852, 'mpi_rank': 5, 'time_taken_parameter_binding': 7.2267e-05, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 10.386014699, 'mpi_rank': 8, 'time_taken_parameter_binding': 0.004362279, 'num_mpi_processes': 12, 'num_processes_per_experiments': 12, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
 ```
 ## Research multi-node quantum circuit simulation on HPC
 - [Cache Blocking Technique to Large Scale Quantum Computing Simulation on Supercomputers](https://arxiv.org/abs/2102.02957)
