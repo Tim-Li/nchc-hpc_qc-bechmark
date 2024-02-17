@@ -140,17 +140,8 @@ print(meta)
 ```
 ## Twnia-4 HPC QC bechmarking
 ### 計算 memory 使用 `2^(qubits)*16(complex values[Bytes])`
+- [code for calaculate memory requirement](qc_memory-cost.ipynb)
 - 雙精度, 單節點 512G memory：`001-node -> 34q；552-node -> 44q`
-```
-single_node_memory = 512*1024
-byte_cp = 16
-qubits = np.arange(2,61)
-
-for q in qubits:
-    memory = (2**q/(1024*1024))*(byte_cp)
-    node = round(memory/(single_node_memory),2)
-    print(q,memory,node)
-```
 ```
 qubit/memory/node
 25 512.0 0.0
@@ -175,20 +166,8 @@ qubit/memory/node
 44 268435456.0 512.0   <- 552 node memory limit
 45 536870912.0 1024.0
 46 1073741824.0 2048.0
-47 2147483648.0 4096.0
-48 4294967296.0 8192.0
 ```
 - 單精度, 單節點 512G memory：`001-node -> 35q；552-node -> 45q`
-```
-single_node_memory = 512*1024
-byte_cp = 8
-qubits = np.arange(2,61)
-
-for q in qubits:
-    memory = (2**q/(1024*1024))*(byte_cp)
-    node = round(memory/(single_node_memory),2)
-    print(q,memory,node)
-```
 ```
 qubit/memory/node
 25 256.0 0.0
@@ -213,20 +192,8 @@ qubit/memory/node
 44 134217728.0 256.0
 45 268435456.0 512.0   <- 552 node memory limit
 46 536870912.0 1024.0
-47 1073741824.0 2048.0
-48 2147483648.0 4096.0
 ```
 - 雙精度, 單節點 256G memory：`001-node -> 33q；552-node -> 43q`
-```
-single_node_memory = 257361
-byte_cp = 16
-qubits = np.arange(2,61)
-
-for q in qubits:
-    memory = (2**q/(1024*1024))*(byte_cp)
-    node = round(memory/(single_node_memory),2)
-    print(q,memory,node)
-```
 ```
 25 512.0 0.0
 26 1024.0 0.0
@@ -250,20 +217,8 @@ for q in qubits:
 44 268435456.0 1043.03
 45 536870912.0 2086.06
 46 1073741824.0 4172.12
-47 2147483648.0 8344.25
-48 4294967296.0 16688.49
 ```
 - 單精度, 單節點 256G memory：`001-node -> 34q；552-node -> 44q`
-```
-single_node_memory = 257361
-byte_cp = 8
-qubits = np.arange(2,61)
-
-for q in qubits:
-    memory = (2**q/(1024*1024))*(byte_cp)
-    node = round(memory/(single_node_memory),2)
-    print(q,memory,node)
-```
 ```
 25 256.0 0.0
 26 512.0 0.0
@@ -287,6 +242,4 @@ for q in qubits:
 44 134217728.0 521.52   <- 552 node memory limit
 45 268435456.0 1043.03
 46 536870912.0 2086.06
-47 1073741824.0 4172.12
-48 2147483648.0 8344.25
 ```
