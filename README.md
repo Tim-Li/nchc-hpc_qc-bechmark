@@ -140,13 +140,13 @@ print(meta)
 ```
 ## Twnia-4 HPC QC bechmarking
 ### 計算 memory 使用 `2^(qubits)*16(complex values[Bytes])`
-- 單雙精度量子電路的記憶體使用量
-![memory requirement 1](figure/nchc_memory_1.jpg)
-- 節點數對應可模擬量子電路的qubit數
-![memory requirement 2](figure/nchc_memory_2.jpg)
 - [code for calaculate memory requirement](qc_memory-cost.ipynb)
 - 結論：
   - 雙精度, 單節點 512G memory：`001-node -> 34q；552-node -> 44q`
   - 單精度, 單節點 512G memory：`001-node -> 35q；552-node -> 45q`
   - 雙精度, 單節點 256G memory：`001-node -> 33q；552-node -> 43q`
   - 單精度, 單節點 256G memory：`001-node -> 34q；552-node -> 44q`
+- 單雙精度量子電路的記憶體使用量
+![memory requirement 1](figure/nchc_memory_1.jpg)
+- 節點數對應可模擬量子電路的qubit數
+![memory requirement 2](figure/nchc_memory_2.jpg)
