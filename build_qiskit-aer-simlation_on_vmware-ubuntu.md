@@ -132,86 +132,9 @@ sudo nano /etc/fstab
 hpc1:/opt/nfsdir /opt/nfsdir   nfs   defaults,timeo=15,retrans=5,_netdev	0 0
 ```
 
----
-## Install `OpenMPI`
-### From `apt-get`
-```
-sudo apt-get install openmpi-bin openmpi-doc libopenmpi-dev -y
-```
-### From `source` 
-- 安裝相關套件
-```
-sudo apt-get install build-essential
-```
-- Download [OpenMPI](https://www.open-mpi.org/)
-- 安裝 OpenMPI from source
-```
-wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
-tar xfz mpich-4.2.0.tar.gz
-cd mpich-4.2.0
-mkdir build
-cd build
-../configure --prefix=/usr/local
-sudo make -j 4 && sudo make install
-```
-- 加入環境變數
-```
-sudo nano ~/.bashrc
-export PATH="$PATH:/usr/local/bin"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
-source ~/.bashrc
-```
-### 驗證安裝
-```
-mpiexec --version
-which mpicc mpiexec mpirun
-```
-- `hello.c`
-```
-cd /opt/nfsdir/mpich-4.2.0/exmaple
-ls -l
-nano hello.c
-mpicc hello.c -o hello
-mpirun hello
-# Hellow world, I am 0 of 2, (hpc1)
-# Hellow world, I am 1 of 2, (hpc1)
-```
-### 驗證 `多節點` 計算
-<!-- - 關閉防火牆
-```
-sudo systemctl stop ufw
-sudo systemctl disable ufw
-``` 
--->
-- 編輯 `mpi_host` file
-```
-sudo nano /opt/nfsdir/mpi_host
-```
-```
-# add
-hpc1
-hpc2
-```
-- 執行檔案
-```
-mpirun -np 8 -f /opt/nfsdir/mpi_host ./hel|sort
-```
-```
-# return
-Hellow world, I am 0 of 8, (hpc1)
-Hellow world, I am 1 of 8, (hpc2)
-Hellow world, I am 2 of 8, (hpc1)
-Hellow world, I am 3 of 8, (hpc2)
-Hellow world, I am 4 of 8, (hpc1)
-Hellow world, I am 5 of 8, (hpc2)
-Hellow world, I am 6 of 8, (hpc1)
-Hellow world, I am 7 of 8, (hpc2)
-```
----
-
 ## qiskit-aer MPI simulation
 ### Buildup Qiskit Env
-- install miniconda and create env for qiskit
+- Install miniconda and create env for qiskit
 ```
 # install miniconda
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -223,7 +146,31 @@ conda create --name qiskit python=3.11
 # env activate
 conda activate qiskit
 ```
--  install qiskit-aer from source
+### Install OpenMPI or MPICH：[MPI tools install](install_mpi_log.md)
+```
+sudo apt-get install build-essential
+wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
+tar xfz openmpi-4.0.3.tar.gz
+cd openmpi-4.0.3
+mkdir build
+cd build
+../configure --prefix=/usr/local
+sudo make -j 4 && sudo make install
+```
+- add PATH
+```
+sudo nano ~/.bashrc
+export PATH="$PATH:/usr/local/bin"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
+source ~/.bashrc
+```
+- Check install
+```
+mpiexec --version
+which mpicc mpiexec mpirun
+ompi_info
+```
+### Install qiskit-aer from source
 ```
 sudo apt-get install git build-essential libopenblas-dev -y
 git clone https://github.com/Qiskit/qiskit-aer
@@ -237,7 +184,7 @@ pip install -U dist/qiskit_aer*.whl
 ```
 pip install qiskit==0.45.3
 ```
-## qiskit-aer mpi test
+### qiskit-aer mpi test
 - demo code (sudo nano qv.py)
 ```
 from qiskit import *
@@ -259,4 +206,14 @@ print(meta)
 - run demo code 
 ```
 mpirun -np 8 -f /opt/nfsdir/mpi_host python qv.py
+# resoult
+{'time_taken_execute': 12.092238211, 'mpi_rank': 0, 'time_taken_parameter_binding': 6.812e-05, 'num_mpi_processes': 8, 'num_processes_per_experiments': 8, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 12.092379407, 'mpi_rank': 4, 'time_taken_parameter_binding': 7.2023e-05, 'num_mpi_processes': 8, 'num_processes_per_experiments': 8, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 12.076616399, 'mpi_rank': 6, 'time_taken_parameter_binding': 7.1571e-05, 'num_mpi_processes': 8, 'num_processes_per_experiments': 8, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 12.080465466, 'mpi_rank': 7, 'time_taken_parameter_binding': 7.61e-05, 'num_mpi_processes': 8, 'num_processes_per_experiments': 8, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 12.093475145, 'mpi_rank': 5, 'time_taken_parameter_binding': 7.5121e-05, 'num_mpi_processes': 8, 'num_processes_per_experiments': 8, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 12.106572619, 'mpi_rank': 1, 'time_taken_parameter_binding': 7.1868e-05, 'num_mpi_processes': 8, 'num_processes_per_experiments': 8, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 12.121836523, 'mpi_rank': 3, 'time_taken_parameter_binding': 7.3629e-05, 'num_mpi_processes': 8, 'num_processes_per_experiments': 8, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
+{'time_taken_execute': 12.123436689, 'mpi_rank': 2, 'time_taken_parameter_binding': 7.184e-05, 'num_mpi_processes': 8, 'num_processes_per_experiments': 8, 'omp_enabled': True, 'max_gpu_memory_mb': 0, 'max_memory_mb': 7902, 'parallel_experiments': 1}
 ```
+- [more qiskit aer mpi simulation resoult](mpich_qiskit-aer_resoult.md)
