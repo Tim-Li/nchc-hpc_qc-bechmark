@@ -142,7 +142,7 @@ print(meta)
 ### 計算 memory 使用 `2^(qubits)*16(complex values[Bytes])`
 - 單雙精度量子電路的記憶體使用量
 ![memory requirement 1](figure/nchc_memory_1.jpg)
-- 節點數對應可模擬量子電路的記憶體使用量
+- 節點數對應可模擬量子電路的qubit數
 ![memory requirement 2](figure/nchc_memory_2.jpg)
 - [code for calaculate memory requirement](qc_memory-cost.ipynb)
 - 結論：
