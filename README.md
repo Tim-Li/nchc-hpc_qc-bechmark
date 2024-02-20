@@ -151,7 +151,8 @@ print(meta)
 - 節點數對應可模擬量子電路的qubit數
 ![memory requirement 2](figure/nchc_memory_2.jpg)
 ### ToDo
-- 整理 qiskit aer mpi paper
-- 整理 altha test 數據
-- 未來規劃 (qsvm,tensornetwork, add memory profile)
-- intel-qs
+- next test (3/25-3/31) 4 week
+- 整理 qiskit aer mpi paper (2/25前)
+- 整理 altha test 數據 (2/25前) 
+- 未來規劃 (qsvm,tensornetwork, add memory profile) (3/03前)
+- intel-qs (3/03前)
