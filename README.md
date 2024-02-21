@@ -1,8 +1,4 @@
 # nchc-hpc_qc-bechmark
-## Resource
-- https://hackmd.io/tu_fk2RDQSyukJiLVBNzhg#Login-information
-- https://github.com/chunyulin/hpc_snippet/wiki/QSim
-
 ## Hardware
 ![alt text](figure/orm67ua2.png)
 ```
