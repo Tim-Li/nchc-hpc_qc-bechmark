@@ -15,6 +15,10 @@ cd qiskit-aer
 pip install -r requirements-dev.txt
 pip install pybind11 auditwheel
 
+python ./setup.py bdist_wheel -- -DAER_THRUST_BACKEND=CUDA -DCUQUANTUM_ROOT=miniconda3/envs/cuq/lib/python3.10/site-packages/cuquantum -DCUTENSOR_ROOT=miniconda3/envs/cuq/lib/python3.10/site-packages/cuquantum/cutensornet -DAER_ENABLE_CUQUANTUM=true -DCUQUANTUM_STATIC=true --
+
+python ./setup.py bdist_wheel -- -DAER_THRUST_BACKEND=CUDA -DCMAKE_VERBOSE_MAKEFILE=true  -DAER_DEBUG=false -DAER_MPI=false -DCMAKE_CUDA_FLAGS=-std=c++14 -DAER_PYTHON_CUDA_ROOT=/usr/local  --
+
 python ./setup.py bdist_wheel -- -DAER_MPI=True -DAER_DISABLE_GDR=True -DAER_THRUST_BACKEND=CUDA
 
 python ./setup.py bdist_wheel -- -DAER_THRUST_BACKEND=CUDA -DCUQUANTUM_ROOT=path_to_cuQuantum -DCUTENSOR_ROOT=path_to_cuTENSOR -DAER_ENABLE_CUQUANTUM=true -DCUQUANTUM_STATIC=true --
